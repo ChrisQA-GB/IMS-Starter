@@ -16,6 +16,8 @@ public class IMS {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private final CustomerController customers;
+	//private final ItemController items;
+	//private final OrderController order;
 	private final Utils utils;
 
 	public IMS() {
@@ -50,8 +52,10 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
+			active = this.items:
 				break;
 			case ORDER:
+			active = this.order:
 				break;
 			case STOP:
 				return;
