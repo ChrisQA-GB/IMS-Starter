@@ -6,7 +6,11 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDAO;
+import com.qa.ims.persistence.dao.ItemsDAO;
+import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -16,14 +20,19 @@ public class IMS {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private final CustomerController customers;
-	//private final ItemController items;
-	//private final OrderController order;
+	private final ItemController items;
+	private final OrderController orders;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
 		final CustomerDAO custDAO = new CustomerDAO();
 		this.customers = new CustomerController(custDAO, utils);
+		final ItemsDAO itemDAO = new ItemsDAO();
+		this.items = new ItemController(itemDAO, utils);
+		final OrderDAO ordDAO = new OrdersDAO();
+		this.orders = new OrderController(ordDAO, utils);
+		
 	}
 
 	public void imsSystem() {
@@ -52,10 +61,10 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
-			active = this.items:
+				active = this.items:
 				break;
 			case ORDER:
-			active = this.order:
+				active = this.order:
 				break;
 			case STOP:
 				return;
@@ -63,7 +72,7 @@ public class IMS {
 				break;
 			}
 
-			LOGGER.info(() ->"What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info(() -> "What would you like to do with " + domain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);
