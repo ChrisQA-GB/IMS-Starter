@@ -11,17 +11,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.utils.DBUtils;
 
-public class OrderDAO {
+public class OrderDAO implements Dao<Orders> {
 	
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	public Orders modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long OrderID = resultSet.getLong("orderID");
+		Long orderID = resultSet.getLong("orderID");
 		Long customerID = resultSet.getLong("customerID");
 		Long itemID = resultSet.getLong("itemID");
 		Long quantity = resultSet.getLong("quantity");
@@ -72,7 +71,7 @@ public class OrderDAO {
 	public Orders create(Orders order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO orders(customerID, itemID, quantity) VALUES (?, ?, ?)");) {
 			statement.setLong(1, order.getCustomerID());
 			statement.setLong(2, order.getItemID());
 			statement.setLong(3, order.getQuantity());
@@ -109,15 +108,16 @@ public class OrderDAO {
 	 * @return
 	 */
 	@Override
+	// I need to figure out why this is not working.
 	public Orders update(Orders order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
-			statement.setString(1, order.getFirstName());
-			statement.setString(2, order.getSurname());
-			statement.setLong(3, order.getId());
-			statement.executeUpdate();
-			return read(customer.getId());
+						.prepareStatement("UPDATE orders SET customerID = ?, itemID = ?, quantity = ? WHERE orderID = ?");) {
+			statement.setLong(1, order.getOrderID());
+			statement.setLong(2, order.getCustomerID());
+			statement.setLong(3, order.getItemID());
+			statement.setLong(4,order.getQuantity()); 
+			return read(order.getCustomerID());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
