@@ -55,12 +55,12 @@ public class ItemController implements CrudController<Items> {
 	@Override
 	public Items update() {
 		LOGGER.info("Please enter the ItemID of the item you would like to update");
-		Long ItemID = utils.getLong();
+		Long itemID = utils.getLong();
 		LOGGER.info("Please enter an item name");
 		String orderItem = utils.getString();
 		LOGGER.info("Please enter the items price");
 		Double price = utils.getDouble();
-		Items items = itemsDAO.update(new Items(ItemID, orderItem, price));
+		Items items = itemsDAO.update(new Items(itemID, orderItem, price));
 		LOGGER.info("Item Updated");
 		return items;
 	}
@@ -73,8 +73,10 @@ public class ItemController implements CrudController<Items> {
 	@Override
 	public int delete() {
 		LOGGER.info("Please enter the ItemID of the item you would like to delete");
-		Long id = utils.getLong();
+		Long itemID= utils.getLong();
 		return itemsDAO.delete(itemID);
+		
+		
 	}
 
 }
