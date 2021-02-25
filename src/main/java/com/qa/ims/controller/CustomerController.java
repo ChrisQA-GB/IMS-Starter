@@ -43,12 +43,30 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer create() {
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Customer customer = customerDAO.create(new Customer(firstName, surname));
-		LOGGER.info("Customer created");
+		Customer customer = null;
+
+		while (customer == null) {
+			
+			LOGGER.info("Please enter a first name\n======================= \nSelect '=' to Cancel ");
+			String firstName = utils.getString();
+			if (firstName.equals("=")) {
+				LOGGER.info("REQUEST CANCELLED");
+				break;
+			}
+			LOGGER.info("Please enter a surname \n Select '=' to Return To Cancel Request \nSelect '-' To Cancel Request");
+			String surname = utils.getString();
+			if (surname.equals("=")) {
+				LOGGER.info("Returned To Previous Step\n==============================");
+				continue;
+			}
+			if(surname.equals("-")) {
+				LOGGER.info("REQUEST CANCELLED");
+				break;
+			}
+			customer = customerDAO.create(new Customer(firstName, surname));
+			LOGGER.info("Customer created");
+			return customer;
+		}
 		return customer;
 	}
 
@@ -57,14 +75,39 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer update() {
-		LOGGER.info("Please enter the id of the customer you would like to update");
-		Long id = utils.getLong();
-		LOGGER.info("Please enter a first name");
-		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
-		String surname = utils.getString();
-		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
-		LOGGER.info("Customer Updated");
+
+		Customer customer = null;
+		Customer firstNames = null;
+
+		while (customer == null) {
+
+			LOGGER.info("Please enter the ID of the customer you would like to update");
+			Long id = utils.getLong();
+			if (id == 0) {
+				LOGGER.info("REQUEST CANCELLED");
+				return null;
+			}
+			
+				while (firstNames == null) {
+
+				LOGGER.info("Please enter a first name \nSelect R to return to previous step");
+				String firstName = utils.getString();
+				if (firstName.equals("r")) {
+					continue;
+				}
+				
+				LOGGER.info("Please enter a surname");
+				String surname = utils.getString();
+				if (surname.equals("r")) {
+					continue;
+				}
+				customer = customerDAO.update(new Customer(id, firstName, surname));
+				LOGGER.info("Customer Updated");
+				return null;
+			}
+
+		}
+
 		return customer;
 	}
 
@@ -77,6 +120,10 @@ public class CustomerController implements CrudController<Customer> {
 	public int delete() {
 		LOGGER.info("Please enter the id of the customer you would like to delete");
 		Long id = utils.getLong();
+		if (id == 0) {
+			LOGGER.info("REQUEST CANCELLED");
+			return 0;
+		}
 		return customerDAO.delete(id);
 	}
 
