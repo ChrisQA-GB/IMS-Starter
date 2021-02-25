@@ -18,7 +18,7 @@ import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.Utils;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CustomerControllerTest {
+public class CustomerControllerTest2 {
 
 	@Mock
 	private Utils utils;
@@ -31,6 +31,7 @@ public class CustomerControllerTest {
 
 	@Test
 	public void testCreate() {
+		
 		final String F_NAME = "barry", L_NAME = "scott";
 		final Customer created = new Customer(F_NAME, L_NAME);
 
@@ -62,12 +63,6 @@ public class CustomerControllerTest {
 		Mockito.when(this.utils.getLong()).thenReturn(1L);
 		Mockito.when(this.utils.getString()).thenReturn(updated.getFirstName(), updated.getSurname());
 		Mockito.when(this.dao.update(updated)).thenReturn(updated);
-
-		assertEquals(updated, this.controller.update());
-
-		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-		Mockito.verify(this.utils, Mockito.times(2)).getString();
-		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
 	}
 
 	@Test

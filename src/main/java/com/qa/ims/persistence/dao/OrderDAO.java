@@ -24,9 +24,20 @@ public class OrderDAO implements Dao<Orders> {
 		Long customerID = resultSet.getLong("customerID");
 		Long itemID = resultSet.getLong("itemID");
 		Long quantity = resultSet.getLong("quantity");
-		return new Orders (orderID, customerID, itemID, quantity);
+		Double cost = quantity * getCost(itemID);
+		return new Orders (orderID, customerID, itemID, quantity,cost);
 	}
 
+	public Double getCost(Long itemId) {
+		
+		
+		ItemsDAO items = new ItemsDAO();
+
+		
+		Double cost = items.read(itemId).getPrice();
+		return cost;
+		
+	}
 	/**
 	 * Reads all customers from the database
 	 * 
@@ -61,6 +72,21 @@ public class OrderDAO implements Dao<Orders> {
 		}
 		return null;
 	}
+	
+	public List<Orders> readIndividual() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT ? FROM orders ORDER BY orderID DESC LIMIT 1");) {
+			LOGGER.info("Please enter an OrderID");
+			resultSet.next();
+			return (List<Orders>) modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
 
 	/**
 	 * Creates a customer in the database
@@ -71,7 +97,7 @@ public class OrderDAO implements Dao<Orders> {
 	public Orders create(Orders order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customerID, itemID, quantity) VALUES (?, ?, ?)");) {
+						.prepareStatement("INSERT INTO orders(CustomerID, ItemID, quantity) VALUES (?, ?, ?)");) {
 			statement.setLong(1, order.getCustomerID());
 			statement.setLong(2, order.getItemID());
 			statement.setLong(3, order.getQuantity());
@@ -142,6 +168,7 @@ public class OrderDAO implements Dao<Orders> {
 		}
 		return 0;
 	}
+
 
 }
 
