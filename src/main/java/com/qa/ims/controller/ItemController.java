@@ -36,10 +36,7 @@ public class ItemController implements CrudController<Items> {
 		return items;
 	}
 
-	
-	// public List<Items> readIndividual() {
-		
-// 	}
+
 	/**
 	 * Creates an item by taking in user input
 	 */

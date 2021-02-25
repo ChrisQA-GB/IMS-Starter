@@ -31,7 +31,6 @@ public class OrderController implements CrudController<Orders> {
 
 	@Override
 	public List<Orders> readAll() {
-		// TODO Auto-generated method stub
 		List<Orders> orders = orderDAO.readAll();
 		for (Orders order : orders) {
 			LOGGER.info(order);

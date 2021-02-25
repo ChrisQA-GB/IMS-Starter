@@ -66,7 +66,7 @@ public class OrdersTest {
 		return quantity;
 }
 
-	public void setQuantity(Long quantity) {
+	public void setQuantity() {
 		this.quantity = quantity;
 }
 
