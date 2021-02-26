@@ -13,11 +13,13 @@ These instructions will enable you a cloned copy of the project, which will be u
 What things you need to install the software and how to install them:
 
 Java 1.8 or later (excluding Java 15).
-- Java 1.8 was used for creation - 
+Java 1.8 was used for creation  
+
 SQL 5.7 or later.
-- SQL 5.7 was used for creation -
-Use of an IDE - Eclipse, InteliJ are recommended though others such as Visual Stuido Code can be used.
-- Eclispse was used for creation -
+SQL 5.7 was used for creation 
+
+Use of an IDE Eclipse, InteliJ are recommended though others such as Visual Stuido Code can be used.
+Eclispse was used for creation 
 
 ### Tools Used 
 
