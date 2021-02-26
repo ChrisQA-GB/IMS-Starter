@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ItemsDAO;
-import com.qa.ims.persistence.dao.OrderContentsDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.utils.Utils;
@@ -16,15 +15,14 @@ public class OrderController implements CrudController<Orders> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	private OrderContentsDAO orderContentsDAO;
+	
 	private OrderDAO orderDAO;
 	private CustomerDAO customerDAO;
 	private ItemsDAO itemsDAO;
 	private Utils utils;
 
-	public OrderController(OrderContentsDAO orderContentsDAO, OrderDAO orderDAO, Utils utils) {
+	public OrderController(OrderDAO orderDAO, Utils utils) {
 		super();
-		this.orderContentsDAO = orderContentsDAO;
 		this.orderDAO = orderDAO;
 		this.utils = utils;
 	}

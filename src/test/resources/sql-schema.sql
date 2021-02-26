@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 	`ItemID` int NOT NULL,
 	`quantity` int DEFAULT NULL;
 	PRIMARY KEY (`OrderID`),
-	FOREIGN KEY (`CustomerID`) REFERENCES customers(`id`),
-	FOREIGN KEY (`ItemID`) REFERENCES items(`ItemID`),
+	FOREIGN KEY (`CustomerID`) REFERENCES customers(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`ItemID`) REFERENCES items(`ItemID`) ON DELETE CASCADE
 );
 	

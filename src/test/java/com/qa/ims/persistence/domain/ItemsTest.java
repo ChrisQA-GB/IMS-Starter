@@ -11,4 +11,3 @@ public class ItemsTest {
 		EqualsVerifier.simple().forClass(Items.class).verify();
 	}
 }
-
