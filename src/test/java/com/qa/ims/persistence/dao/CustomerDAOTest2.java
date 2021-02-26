@@ -11,14 +11,14 @@ import org.junit.Test;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.DBUtils;
 
-public class CustomerDAOTest {
+public final class CustomerDAOTest2 {
 
 	private final CustomerDAO DAO = new CustomerDAO();
 
 	@Before
 	public void setup() {
 		DBUtils.connect();
-		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
+		DBUtils.getInstance().init("src/test/resources/sql-Customer.sql", "src/test/resources/sql-data-Customers.sql");
 	}
 
 	@Test
