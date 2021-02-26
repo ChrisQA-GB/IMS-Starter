@@ -35,12 +35,11 @@ Using an IDE open the File Column and select Open Project From File System and s
 
 ## Running the tests
 
-To be able to test within the IMS-Starter file navigate to the control directory 
+To be able to test within the IMS-Starter file navigate to the control directory and run a mvn package on the file to push any tests through the command. To manually test within Eclispse, right click on the IMS-Starter projecr and select run Coverage As, as a JUnit Test.
 
 ### Unit Tests 
 
 The unit tests that are within the file are essentially testing that every and all method/constructors within classes I have been able to pass the tests with at least 70% coverage. 
-
 
 ## Built With
 
